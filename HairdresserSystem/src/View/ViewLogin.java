@@ -29,12 +29,10 @@ public class ViewLogin extends JFrame {
     private JTextField txtPass;
     public JButton logIn;
     ControllerLogin ControllerLogin;
-    ViewRegHairdresser RegHairView;
 
     public ViewLogin(ControllerLogin ControllerLogin) {
         
         this.ControllerLogin = ControllerLogin;
-        this.RegHairView = new ViewRegHairdresser();
         
         //Create and set up the window
         this.setVisible(true);
@@ -84,9 +82,9 @@ public class ViewLogin extends JFrame {
                         ViewRegCustomer cus = new ViewRegCustomer();
                         cus.ViewRegCustomer();
                         
-                    } else {
-                        
-                        getRegHairView().setVisible(true); 
+                    } else if(typeUser.equals("Hairdresser")) {
+                        ViewRegHairdresser cus = new ViewRegHairdresser();
+                        cus.setVisible(true); 
                     }
                 }
             }
@@ -170,14 +168,6 @@ public class ViewLogin extends JFrame {
 
     public void setControllerLogin(ControllerLogin ControllerLogin) {
         this.ControllerLogin = ControllerLogin;
-    }
-
-    public ViewRegHairdresser getRegHairView() {
-        return RegHairView;
-    }
-
-    public void setRegHairView(ViewRegHairdresser RegHairView) {
-        this.RegHairView = RegHairView;
     }
 
     

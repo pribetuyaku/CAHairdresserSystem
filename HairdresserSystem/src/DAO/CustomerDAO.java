@@ -6,6 +6,8 @@ import Model.ConnectionDB;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -41,7 +43,8 @@ public class CustomerDAO {
             throw new RuntimeException(e);
         }
 
-    }
+    }     
+    
     
     //execute Login
     public boolean exeLogin(String email, String password){

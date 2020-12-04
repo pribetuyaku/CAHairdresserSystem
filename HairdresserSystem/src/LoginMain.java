@@ -13,14 +13,6 @@ public class LoginMain {
 
         new ControllerLogin();
 
-        //teste
-//        try {
-//            JOptionPane.showMessageDialog(null, "Testando a conection");
-//            Connection conn = new Model.ConnectionDB().connect();
-//            JOptionPane.showMessageDialog(null, "Connected!");
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, "Erro"+e);
-//        }
     }
 
 }

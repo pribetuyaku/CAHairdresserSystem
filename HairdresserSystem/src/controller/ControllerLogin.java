@@ -1,9 +1,12 @@
 package controller;
 
 import DAO.CustomerDAO;
+import DAO.HairdresserDAO;
+import Model.ConnectionDB;
 import View.ViewLogin;
+import View.ViewRegCustomer;
 import View.ViewCustomerHome;
-import View.ViewHairdresserHome;
+import View.ViewRegHairdresser;
 import Model.ConnectionDB;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,10 +45,9 @@ public class ControllerLogin implements ActionListener {
                 getView().setVisible(false); //close the ViewLogin
                 
             } else{
-                ViewHairdresserHome hair = new ViewHairdresserHome();
+                //ViewHairdresserHome hair = new ViewHairdresserHome();
                 JOptionPane.showMessageDialog(null, "Welcome!");
                  getView().setVisible(false); //close the ViewLogin
-               
             } 
         } catch (Exception e) {
 
