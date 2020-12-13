@@ -7,6 +7,7 @@ import View.ViewLogin;
 import View.ViewRegCustomer;
 import View.ViewCustomerHome;
 import View.ViewRegHairdresser;
+import View.ViewHairdresserHome;
 import Model.ConnectionDB;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,34 +29,41 @@ public class ControllerLogin implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        
-        String um,pw;
-        um = view.getEmail();
-        pw = view.getPassword();
+
+        String umhair, pwhair;
+        String umcus, pwcus;
+
+        umcus = view.getEmail();
+        pwcus = view.getPassword();
+
+        umhair = view.getEmail();
+        pwhair = view.getPassword();
 
         try {
+            CustomerDAO cdao = new CustomerDAO();
+            HairdresserDAO hdao = new HairdresserDAO();
 
-            CustomerDAO cdao = new CustomerDAO();  
-
-            if (cdao.exeLogin(um, pw)) {
+            if (cdao.exeLogin(umcus, pwcus)) {
                 //open the next screen CustomerArea or HairdresserArea
                 ViewCustomerHome cust = new ViewCustomerHome();
                 JOptionPane.showMessageDialog(null, "Welcome!");
                 cust.ViewCustomerHome(); //calling method ViewCustomerHome
                 getView().setVisible(false); //close the ViewLogin
-                
-            } else{
-                //ViewHairdresserHome hair = new ViewHairdresserHome();
-                JOptionPane.showMessageDialog(null, "Welcome!");
-                 getView().setVisible(false); //close the ViewLogin
-            } 
+
+            } else if (hdao.exeLogin(umhair, pwhair)) {
+                ViewHairdresserHome hair = new ViewHairdresserHome();
+                JOptionPane.showMessageDialog(null, "Welcome Hairdresser!");
+                hair.ViewHairdresserHome();
+                getView().setVisible(false); //close the ViewLogin
+            } else {
+                //if it is empty
+                JOptionPane.showMessageDialog(null, "Invalid user or password", "Error!!!", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (Exception e) {
 
         }
     }
-    
-    
-    
+
     public ConnectionDB getModel() {
         return model;
     }
@@ -64,7 +72,6 @@ public class ControllerLogin implements ActionListener {
         this.model = model;
     }
 
-    
     public ViewLogin getView() {
         return view;
     }

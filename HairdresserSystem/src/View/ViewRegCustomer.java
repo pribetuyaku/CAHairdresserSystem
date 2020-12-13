@@ -2,7 +2,6 @@ package View;
 
 import DAO.CustomerDAO;
 import JavaBean.Customer;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -67,8 +66,10 @@ public class ViewRegCustomer extends JFrame implements ActionListener {
         txtPass.setBounds(80, 157, 210, 25);
 
         //Button Register
-        JButton regButton = new JButton("Register"); //creating Button Login
+        JButton regButton = new JButton("Register"); //creating Button Register
         regButton.setPreferredSize(new Dimension(90, 25));
+        regButton.setForeground(Color.WHITE);
+        regButton.setBackground(Color.BLUE);
         regButton.addActionListener(this);
         regButton.setBounds(113, 230, 90, 25);
 
@@ -141,12 +142,22 @@ public class ViewRegCustomer extends JFrame implements ActionListener {
             objUser.setPassword(txtPass.getText());
 
             CustomerDAO cdao = new CustomerDAO();
-            cdao.registerCustomer(objUser);
-
-            JOptionPane.showMessageDialog(null, "User registered successfully!");
-
+            
+            //check if there is any empty field
+            if (txtFName.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "ERROR: Fill all the form!",  "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);
+            } else if (txtMail.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "ERROR: Fill all the form!",  "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);
+            } else if (txtPhone.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "ERROR: Fill all the form!",  "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);
+            } else if (txtPass.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "ERROR: Fill all the form!",  "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);
+            } else {
+                cdao.registerCustomer(objUser);
+                JOptionPane.showMessageDialog(null, "Customer registered successfully!","INFORM MESSAGE", JOptionPane.INFORMATION_MESSAGE);
+            }
         } catch (Exception error) {
-            JOptionPane.showMessageDialog(null, "REGISTERING ERROR!");
+           
         }
     }
 

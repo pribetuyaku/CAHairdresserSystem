@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 /**
  *
@@ -18,10 +19,58 @@ public class CustomerDAO {
     private Connection connect;
 
     //Constructor
-    public CustomerDAO() {
-        this.connect = new ConnectionDB().connect();
+    public CustomerDAO() throws Exception{
+        this.connect = ConnectionDB.connect();
     }
 
+    //Vector 
+    public Vector Search(String searching) throws Exception{
+        Vector tbl = new Vector();
+        String url = "SELECT * FROM Hairdresser WHERE HFname like '" + searching + "%'";
+        PreparedStatement stmt = getConnect().prepareStatement(url);
+        ResultSet rs = stmt.executeQuery();
+        while(rs.next()){
+            Vector nl = new Vector();
+            nl.add(rs.getString("HFname"));
+            nl.add(rs.getString("Date"));
+            nl.add(rs.getString("Time"));
+            nl.add(rs.getString("Location"));
+            tbl.add(nl);
+        }
+        return tbl;
+    }
+    
+    
+    //list all new bookings
+    public List<Customer> listCustomer() {
+
+        try {
+            //create a new vector to save the data on DB
+            List<Customer> list = new ArrayList<Customer>();
+            //SQL code
+            String cmdsql = "SELECT * FROM Customer;";
+            PreparedStatement stmt = connect.prepareStatement(cmdsql);
+            ResultSet rs = stmt.executeQuery();
+
+            //While there is some register, save it in the list
+            while (rs.next()) {
+                Customer Customerlist = new Customer();
+                
+                Customerlist.setIdCus(rs.getInt("idCus"));
+                Customerlist.setFname(rs.getString("fname"));
+                Customerlist.setEmail(rs.getString("email"));
+                Customerlist.setPhone(rs.getString("phone"));
+
+                
+                list.add(Customerlist);
+            }
+            return list;
+        } catch (SQLException error) {
+            throw new RuntimeException(error);
+        }
+    }
+    
+    
     //Register Customer
     public void registerCustomer(Customer obj) {
         try {
@@ -51,7 +100,7 @@ public class CustomerDAO {
         try {
             
             //SQL select code 
-            String cmdsql = "SELECT * FROM Customer WHERE email=? AND password=?";
+            String cmdsql = "SELECT * FROM Customer WHERE email=? AND password=?;";
 
             //Execute cmdsql and play
             PreparedStatement stmt = connect.prepareStatement(cmdsql);
@@ -69,6 +118,14 @@ public class CustomerDAO {
         
         }
         return false;
+    }
+
+    public Connection getConnect() {
+        return connect;
+    }
+
+    public void setConnect(Connection connect) {
+        this.connect = connect;
     }
 
 }

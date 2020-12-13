@@ -38,7 +38,7 @@ public class ViewLogin extends JFrame {
         this.setVisible(true);
         this.setLocationRelativeTo(null); //set location
         this.setResizable(false);
-        this.setSize(240, 320);
+        this.setSize(240, 310);
         this.setTitle("LOGIN");
         BorderLayout bdTitle = new BorderLayout();
         this.setLayout(bdTitle);
@@ -82,9 +82,10 @@ public class ViewLogin extends JFrame {
                         ViewRegCustomer cus = new ViewRegCustomer();
                         cus.ViewRegCustomer();
                         
-                    } else if(typeUser.equals("Hairdresser")) {
+                    } else if(typeUser.equals("Hairdresser")) { //open RegCustomer screen
                         ViewRegHairdresser cus = new ViewRegHairdresser();
-                        cus.setVisible(true); 
+                        cus.ViewRegHairdresser();
+                        
                     }
                 }
             }
@@ -98,9 +99,15 @@ public class ViewLogin extends JFrame {
         JLabel lblLogin = new JLabel("LOGIN AREA");
         JLabel lblEmail = new JLabel("E-mail:");
         txtEmail = new JTextField(18); //creating textfield email
+        
         JLabel lblPass = new JLabel("Password:");
         txtPass = new JPasswordField(18);//creating textfield password
-
+        //gap btween lines
+        FlowLayout flowG = new FlowLayout();
+        centerPanel.setLayout(flowG);
+        flowG.setVgap(8);//put a gap(border space)
+        flowG.setAlignment(FlowLayout.CENTER);
+        
         JButton logIn = new JButton("LOGIN");//creating Button Login
         logIn.setForeground(Color.WHITE);
         logIn.setBackground(Color.BLUE);
@@ -117,6 +124,7 @@ public class ViewLogin extends JFrame {
 //        JSeparator sep = new JSeparator();
 //        sep.setOrientation(SwingConstants.HORIZONTAL);
 //        centerPanel.add(sep);
+
         centerPanel.add(lblLogin);
         centerPanel.add(lblEmail);
         centerPanel.add(txtEmail);
@@ -170,7 +178,6 @@ public class ViewLogin extends JFrame {
         this.ControllerLogin = ControllerLogin;
     }
 
-    
     private void checking() {
         // Always have these two methods at the end
         // to ensure the rendering process occurs correctly

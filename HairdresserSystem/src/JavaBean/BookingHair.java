@@ -5,7 +5,7 @@ package JavaBean;
  *
  * @author Betuyaku
  */
-public class Booking {
+public class BookingHair {
     private int idBooking;
     private int idHairdre;
     private String HFname;
